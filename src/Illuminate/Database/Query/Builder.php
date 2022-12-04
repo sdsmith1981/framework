@@ -1177,6 +1177,21 @@ class Builder implements BuilderContract
     {
         return $this->whereNull($columns, $boolean, true);
     }
+    
+     /**
+     * Add a "where or null" clause to the query.
+     *
+     * @param  string|array  $columns
+     * @param  mixed  $values
+     * @return $this
+     */
+    public function whereOrNull($columns, $operator = , $value)
+    {
+        return $this->where(function ($query) use ($column, $operator, $value) {
+            $query->where($column, $operator, $value);
+            $query->orWhereNull($column);
+        });
+    }
 
     /**
      * Add a where between statement to the query.
